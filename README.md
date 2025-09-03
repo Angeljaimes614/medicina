@@ -210,3 +210,6 @@ Para soporte técnico:
 ---
 
 ¡Gracias por usar el Sistema de Gestión Médica MediCare! 🏥✨
+
+
+Enlace desplegado: https://68b89b123e8963352683fe9d--medicina1.netlify.app/
