@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Gestión Médica - MediCare</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <i class="fas fa-heartbeat"></i>
+                <h1>MediCare</h1>
+            </div>
+            <nav class="nav">
+                <button class="nav-btn active" data-section="dashboard">
+                    <i class="fas fa-tachometer-alt"></i> Dashboard
+                </button>
+                <button class="nav-btn" data-section="pacientes">
+                    <i class="fas fa-users"></i> Pacientes
+                </button>
+                <button class="nav-btn" data-section="citas">
+                    <i class="fas fa-calendar-alt"></i> Citas
+                </button>
+                <button class="nav-btn" data-section="historial">
+                    <i class="fas fa-file-medical"></i> Historial
+                </button>
+                <button class="nav-btn" data-section="reportes">
+                    <i class="fas fa-chart-bar"></i> Reportes
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <!-- Dashboard Section -->
+            <section id="dashboard" class="section active">
+                <h2>Dashboard</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <i class="fas fa-users"></i>
+                        <div class="stat-info">
+                            <h3 id="total-pacientes">0</h3>
+                            <p>Total Pacientes</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-calendar-check"></i>
+                        <div class="stat-info">
+                            <h3 id="citas-hoy">0</h3>
+                            <p>Citas Hoy</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-user-md"></i>
+                        <div class="stat-info">
+                            <h3 id="total-doctores">0</h3>
+                            <p>Doctores Activos</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-file-medical-alt"></i>
+                        <div class="stat-info">
+                            <h3 id="historiales">0</h3>
+                            <p>Historiales</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Pacientes Section -->
+            <section id="pacientes" class="section">
+                <div class="section-header">
+                    <h2>Gestión de Pacientes</h2>
+                    <button class="btn btn-primary" onclick="mostrarFormularioPaciente()">
+                        <i class="fas fa-plus"></i> Nuevo Paciente
+                    </button>
+                </div>
+                
+                <div class="search-bar">
+                    <input type="text" id="buscar-paciente" placeholder="Buscar paciente...">
+                    <button onclick="buscarPaciente()">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+
+                <div class="table-container">
+                    <table id="tabla-pacientes">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre</th>
+                                <th>Edad</th>
+                                <th>Teléfono</th>
+                                <th>Email</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Los pacientes se cargarán dinámicamente -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Citas Section -->
+            <section id="citas" class="section">
+                <div class="section-header">
+                    <h2>Gestión de Citas</h2>
+                    <button class="btn btn-primary" onclick="mostrarFormularioCita()">
+                        <i class="fas fa-plus"></i> Nueva Cita
+                    </button>
+                </div>
+
+                <div class="filters">
+                    <input type="date" id="filtro-fecha">
+                    <select id="filtro-doctor">
+                        <option value="">Todos los doctores</option>
+                    </select>
+                    <button onclick="filtrarCitas()">
+                        <i class="fas fa-filter"></i> Filtrar
+                    </button>
+                </div>
+
+                <div class="table-container">
+                    <table id="tabla-citas">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Paciente</th>
+                                <th>Doctor</th>
+                                <th>Fecha</th>
+                                <th>Hora</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Las citas se cargarán dinámicamente -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Historial Section -->
+            <section id="historial" class="section">
+                <div class="section-header">
+                    <h2>Historial Médico</h2>
+                    <button class="btn btn-primary" onclick="mostrarFormularioHistorial()">
+                        <i class="fas fa-plus"></i> Nuevo Registro
+                    </button>
+                </div>
+
+                <div class="search-bar">
+                    <input type="text" id="buscar-historial" placeholder="Buscar por paciente...">
+                    <button onclick="buscarHistorial()">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+
+                <div class="table-container">
+                    <table id="tabla-historial">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Paciente</th>
+                                <th>Doctor</th>
+                                <th>Fecha</th>
+                                <th>Diagnóstico</th>
+                                <th>Tratamiento</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- El historial se cargará dinámicamente -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Reportes Section -->
+            <section id="reportes" class="section">
+                <h2>Reportes y Análisis</h2>
+                <div class="reports-grid">
+                    <div class="report-card">
+                        <h3>Pacientes por Doctor</h3>
+                        <button class="btn btn-secondary" onclick="generarReportePacientesPorDoctor()">
+                            <i class="fas fa-file-pdf"></i> Generar Reporte
+                        </button>
+                        <div id="reporte-pacientes-doctor"></div>
+                    </div>
+                    <div class="report-card">
+                        <h3>Citas por Fecha</h3>
+                        <input type="date" id="fecha-reporte-citas">
+                        <button class="btn btn-secondary" onclick="generarReporteCitasPorFecha()">
+                            <i class="fas fa-file-pdf"></i> Generar Reporte
+                        </button>
+                        <div id="reporte-citas-fecha"></div>
+                    </div>
+                    <div class="report-card">
+                        <h3>Análisis del Historial</h3>
+                        <button class="btn btn-secondary" onclick="generarAnalisisHistorial()">
+                            <i class="fas fa-chart-line"></i> Generar Análisis
+                        </button>
+                        <div id="analisis-historial"></div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Modales -->
+    <div id="modal-paciente" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="cerrarModal('modal-paciente')">&times;</span>
+            <h3>Gestión de Paciente</h3>
+            <form id="form-paciente">
+                <input type="hidden" id="paciente-id">
+                <div class="form-group">
+                    <label for="paciente-nombre">Nombre Completo:</label>
+                    <input type="text" id="paciente-nombre" required>
+                </div>
+                <div class="form-group">
+                    <label for="paciente-edad">Edad:</label>
+                    <input type="number" id="paciente-edad" required>
+                </div>
+                <div class="form-group">
+                    <label for="paciente-telefono">Teléfono:</label>
+                    <input type="tel" id="paciente-telefono" required>
+                </div>
+                <div class="form-group">
+                    <label for="paciente-email">Email:</label>
+                    <input type="email" id="paciente-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="paciente-direccion">Dirección:</label>
+                    <textarea id="paciente-direccion" required></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                    <button type="button" class="btn btn-secondary" onclick="cerrarModal('modal-paciente')">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="modal-cita" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="cerrarModal('modal-cita')">&times;</span>
+            <h3>Gestión de Cita</h3>
+            <form id="form-cita">
+                <input type="hidden" id="cita-id">
+                <div class="form-group">
+                    <label for="cita-paciente">Paciente:</label>
+                    <select id="cita-paciente" required>
+                        <option value="">Seleccionar paciente</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="cita-doctor">Doctor:</label>
+                    <select id="cita-doctor" required>
+                        <option value="">Seleccionar doctor</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="cita-fecha">Fecha:</label>
+                    <input type="date" id="cita-fecha" required>
+                </div>
+                <div class="form-group">
+                    <label for="cita-hora">Hora:</label>
+                    <input type="time" id="cita-hora" required>
+                </div>
+                <div class="form-group">
+                    <label for="cita-motivo">Motivo:</label>
+                    <textarea id="cita-motivo" required></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                    <button type="button" class="btn btn-secondary" onclick="cerrarModal('modal-cita')">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="modal-historial" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="cerrarModal('modal-historial')">&times;</span>
+            <h3>Registro Médico</h3>
+            <form id="form-historial">
+                <input type="hidden" id="historial-id">
+                <div class="form-group">
+                    <label for="historial-paciente">Paciente:</label>
+                    <select id="historial-paciente" required>
+                        <option value="">Seleccionar paciente</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="historial-doctor">Doctor:</label>
+                    <select id="historial-doctor" required>
+                        <option value="">Seleccionar doctor</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="historial-fecha">Fecha:</label>
+                    <input type="date" id="historial-fecha" required>
+                </div>
+                <div class="form-group">
+                    <label for="historial-diagnostico">Diagnóstico:</label>
+                    <textarea id="historial-diagnostico" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="historial-tratamiento">Tratamiento:</label>
+                    <textarea id="historial-tratamiento" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="historial-observaciones">Observaciones:</label>
+                    <textarea id="historial-observaciones"></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                    <button type="button" class="btn btn-secondary" onclick="cerrarModal('modal-historial')">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="database.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
